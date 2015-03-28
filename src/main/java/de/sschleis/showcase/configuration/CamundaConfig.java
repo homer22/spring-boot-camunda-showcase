@@ -6,6 +6,8 @@ import org.camunda.bpm.engine.spring.SpringProcessEngineConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
@@ -28,6 +30,9 @@ public class CamundaConfig {
         result.setDataSource(dataSource);
         result.setTransactionManager(transactionManager);
         result.setDatabaseSchemaUpdate("true");
+        Resource[] resources = new Resource[1];
+        resources[0] = new ClassPathResource("loan-approval.bpmn");
+        result.setDeploymentResources(resources);
         result.setJobExecutorActivate(false);
         return result;
     }
